@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quran Question Generator</title>
+  <link rel="stylesheet" href="Generator.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Hifz Tester — Full Qur'an</h2>
+    <p>﷽</p>
+    <p><b>Riwayah:</b> Hafs</p>
+    <p><b>Range:</b> Entire Qur'an</p>
+
+    <button onclick="generateQuestions()">Generate Questions</button>
+    <button class="reset-btn" onclick="resetQuestions()">Reset</button>
+
+    <div id="questions"></div>
+  </div>
+
+  <script>
+    function randomPage(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generateQuestions() {
+      document.getElementById("questions").innerHTML = "";
+
+      const ranges = [
+        { paraRange: "1–10", min: 1, max: 200 },
+        { paraRange: "11–20", min: 201, max: 400 },
+        { paraRange: "21–30", min: 401, max: 604 }
+      ];
+
+      const outputDiv = document.getElementById("questions");
+
+      ranges.forEach((range, i) => {
+        const page = randomPage(range.min, range.max);
+        const div = document.createElement("div");
+        div.className = "question-box";
+        const mushafLink = `https://quran.com/page/${page}`;
+        div.innerHTML = `
+          <h3>Question ${i + 1}</h3>
+          <p>Recite </p>
+          <a href="${mushafLink}" target="_blank" class="view-btn">View Mushaf Page</a>
+        `;
+        outputDiv.appendChild(div);
+      });
+    }
+
+    function resetQuestions() {
+      document.getElementById("questions").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
